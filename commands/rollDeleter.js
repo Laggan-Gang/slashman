@@ -26,7 +26,7 @@ module.exports = {
     } catch (error) {
       if (error.toString() === "DiscordAPIError[50013]: Missing Permissions") {
         interaction.reply(
-          "I think the " + role + "-roll is better left alone, bub"
+          "I think the " + role.toString() + "-roll is better left alone, bub"
         );
         return;
       }
