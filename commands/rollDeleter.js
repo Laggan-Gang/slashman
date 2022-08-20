@@ -24,6 +24,12 @@ module.exports = {
       await guild.roles.delete(role.id, "I ate it lol");
       await interaction.reply(`The roll ${rollToDelete} has been eaten, bub`);
     } catch (error) {
+      if (error.toString() === "DiscordAPIError: Missing Permissions") {
+        interaction.reply(
+          "I think the " + rollToDelete + "-roll is better left alone, bub"
+        );
+        return;
+      }
       console.log(error);
     }
   },
