@@ -11,6 +11,9 @@ module.exports = {
       option.setName("name").setDescription("New channel name")
     ),
   async execute(interaction) {
+    const channel = interaction.options.getChannel("channel");
+    const name = interaction.options.getString("name");
+    console.log("prutt");
     await interaction.reply("Done!");
   },
 };
