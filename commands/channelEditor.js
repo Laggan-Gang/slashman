@@ -7,8 +7,9 @@ module.exports = {
     .addChannelOption((option) =>
       option.setName("channel").setDescription("Select a channel")
     )
-    .addStringOption("name")
-    .setDescription("New name"),
+    .addStringOption((option) =>
+      option.setName("name").setDescription("New channel name")
+    ),
   async execute(interaction) {
     await interaction.reply("Done!");
   },
