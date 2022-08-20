@@ -16,7 +16,7 @@ for (const file of commandFiles) {
   client.commands.set(command.data.name, command);
 }
 client.once("ready", () => {
-  console.log("Ready!");
+  console.log("SNIKTBUB!");
 });
 
 client.on("interactionCreate", async (interaction) => {
