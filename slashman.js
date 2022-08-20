@@ -25,7 +25,13 @@ client.on("interactionCreate", async (interaction) => {
   const command = client.commands.get(interaction.commandName);
 
   if (!command) return;
-
+  if (interaction.channelId != "539847809004994560") {
+    interaction.reply(
+      "This ain't the place for this kind of thing, bub. Head on over to " +
+        interaction.guild.channels.cache.get("539847809004994560").toString()
+    );
+    return;
+  }
   try {
     await command.execute(interaction);
   } catch (error) {
