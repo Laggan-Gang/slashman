@@ -23,6 +23,7 @@ module.exports = {
       await interaction.reply(`The role ${nyRoll}was created`);
     } catch (error) {
       console.log(error);
+      await interaction.reply(`I don't know what you did bub, but ${error}`);
     }
   },
 };
