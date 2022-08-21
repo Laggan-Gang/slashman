@@ -1,0 +1,75 @@
+const {
+  SlashCommandBuilder,
+  ActionRowBuilder,
+  SelectMenuBuilder,
+} = require("discord.js");
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("ping")
+    .setDescription("Replies with Pong!"),
+  async execute(interaction) {
+    const row = new ActionRowBuilder().addComponents(
+      new SelectMenuBuilder()
+        .setCustomId("channelSelect")
+        .setPlaceholder("Select channel to edit...")
+        .addOptions({
+          label: "Cancel",
+          description: "Actually, no",
+          value: "cancel",
+        })
+    );
+    //one more like above because otherwise all channels won't fit
+    const row2 = new ActionRowBuilder().addComponents(
+      new SelectMenuBuilder()
+        .setCustomId("channelSelect2")
+        .setPlaceholder("Or maybe it's here...")
+        .addOptions({
+          label: "Cancel",
+          description: "Actually, no",
+          value: "cancel2",
+        })
+    );
+    const voiceChannels = (await interaction.guild.channels.fetch()).filter(
+      (c) => c.type == 2
+    ); //2 means voice channel
+    let i = 0;
+    voiceChannels.forEach((channel) => {
+      if (i <= 20) {
+        row.components[0].addOptions([
+          {
+            label: `${channel.name}`,
+            description: `${channel.name}`,
+            value: `${channel.id}`,
+          },
+        ]);
+      } else {
+        row2.components[0].addOptions([
+          {
+            label: `${channel.name}`,
+            description: `${channel.name}`,
+            value: `${channel.id}`,
+          },
+        ]);
+      }
+      i++;
+    });
+
+    await interaction.reply({
+      components: [row, row2],
+    });
+  },
+};
+//This goes in index.js or whatever I call it
+if (
+  interaction.customId === "channelSelect" ||
+  interaction.customId === "channelSelect2"
+) {
+  const chosenChannelId = interaction.values[0];
+  const chosenChannel = await interaction.guild.channels.fetch(chosenChannelId);
+  console.log("Nu valde du något");
+  await interaction.update({
+    content: `So what new name are we giving ${chosenChannel}?`,
+    components: [],
+  });
+}

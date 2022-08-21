@@ -16,12 +16,13 @@ module.exports = {
     const role = await interaction.member.guild.roles.cache.find(
       (role) => role.name === rollToDelete
     );
+    const interactionUser = interaction.member.user.username;
     try {
       if (role == undefined) {
         interaction.reply("Can't find the roll, bub");
         return;
       }
-      await guild.roles.delete(role.id, "I ate it lol");
+      await guild.roles.delete(role.id, `Role deleted by ${interactionUser}`);
       await interaction.reply(`The roll ${rollToDelete} has been eaten, bub`);
     } catch (error) {
       if (error.toString() === "DiscordAPIError[50013]: Missing Permissions") {
